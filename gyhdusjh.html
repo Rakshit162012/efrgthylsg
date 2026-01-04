@@ -1,0 +1,4209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Master 3ème - Préparation Brevet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --primary: #0b1b3b;
+      --accent: #ffb400;
+      --bg-light: #f5f7fb;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --radius-md: 10px;
+      --radius-lg: 18px;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s, transform 0.1s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .nav-links a.active-link {
+      background: var(--accent);
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      width: 22px;
+      height: 2px;
+      background: #ffffff;
+      border-radius: 999px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .nav-toggle.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 900px) {
+      .nav-container {
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        position: fixed;
+        inset: 52px 0 auto 0;
+        background: var(--primary);
+        flex-direction: column;
+        padding: 0.8rem 1.2rem 1.2rem;
+        transform: translateY(-120%);
+        transition: transform 0.22s ease-out;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.2rem 3rem;
+      min-height: calc(100vh - 80px);
+    }
+
+    .page {
+      display: none;
+      margin-bottom: 3rem;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.96rem;
+    }
+
+    /* ---------- PAGE : ACCUEIL ---------- */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), #1f2a5c);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2.1rem;
+      color: #ffffff;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 2rem;
+      box-shadow: var(--shadow-soft);
+      margin-top: 1.2rem;
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: #e5e7eb;
+      max-width: 32rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0 1.7rem;
+    }
+
+    .hero-badge {
+      background: rgba(15, 23, 42, 0.3);
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.8rem;
+      border: 1px solid rgba(156, 163, 175, 0.3);
+    }
+
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.6rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #111827;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+      transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+      background: #ffc94a;
+    }
+
+    .cta-primary span {
+      margin-left: 0.4rem;
+    }
+
+    .hero-side {
+      background: rgba(15, 23, 42, 0.18);
+      border-radius: var(--radius-md);
+      padding: 1.4rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.7rem;
+    }
+
+    .hero-side-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-side-list {
+      font-size: 0.92rem;
+      color: #e5e7eb;
+      list-style: none;
+    }
+
+    .hero-side-list li {
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-side-tagline {
+      margin-top: 0.7rem;
+      font-size: 0.86rem;
+      color: #d1d5db;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .alert-urgent {
+      background: linear-gradient(120deg, #ffb400, #ff7a00);
+      color: #111827;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.2rem;
+      margin-top: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .alert-urgent-title {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .alert-urgent-list {
+      list-style: disc;
+      padding-left: 1.3rem;
+      font-size: 0.9rem;
+    }
+
+    .feature-grid {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 960px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .feature-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 160px;
+      border: 1px solid #e5e7eb;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .feature-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .feature-title {
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .feature-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .feature-link {
+      margin-top: auto;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* ---------- RESSOURCES INDEX ---------- */
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem;
+      margin-top: 1.2rem;
+    }
+
+    @media (max-width: 780px) {
+      .subjects-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .subject-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .subject-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .subject-tag {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .subject-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .subject-link {
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* ---------- SOUS-PAGES DE MATIÈRES (RESSOURCES) ---------- */
+    .subject-page {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.1rem 1.3rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      margin-top: 1.3rem;
+    }
+
+    .subject-page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.7rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subject-page-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .subject-page-tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .subject-back {
+      font-size: 0.86rem;
+      color: var(--primary);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-bottom: 0.4rem;
+      cursor: pointer;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.6rem;
+    }
+
+    @media (max-width: 680px) {
+      .resource-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    details {
+      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      padding: 0.6rem 0.7rem;
+    }
+
+    details[open] {
+      background: #f3f4ff;
+      border-color: #c7d2fe;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.94rem;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-prefix {
+      font-size: 1rem;
+    }
+
+    details > div {
+      margin-top: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .resource-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-top: 0.3rem;
+    }
+
+    .resource-link {
+      font-size: 0.88rem;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .resource-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #e5e7eb;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: #374151;
+    }
+
+
+    /* ---------- PAGE : OUTILS ---------- */
+    .tools-grid {
+      margin-top: 1.2rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    @media (max-width: 720px) {
+      .tools-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .tool-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1rem 0.95rem 1.1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .tool-title {
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tool-badge {
+      font-size: 0.75rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .tool-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .tool-placeholder {
+      margin-top: 0.3rem;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px dashed #d1d5db;
+      background: #f9fafb;
+    }
+
+    .tool-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ---------- PAGE : AGENDA & SUIVI ---------- */
+    .calendar-block {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1rem 1rem 1.3rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      margin-top: 1.2rem;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .calendar-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .calendar-help {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .calendar-placeholder {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px dashed #d1d5db;
+      background: #f9fafb;
+      margin-top: 0.6rem;
+    }
+
+    .dashboard-grid {
+      display: none;
+    }
+
+    .dashboard-info {
+      display: none;
+    }
+
+    .dashboard-placeholder {
+      display: none;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      background: #e5e7eb;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: #374151;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 1rem 0 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ---------- BARRE D’ACCUEIL / MODALE ---------- */
+    .welcome-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.9rem;
+      margin-left: auto;
+    }
+
+    .welcome-link {
+      border: none;
+      background: none;
+      color: #ffb400;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .name-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .name-gate--hidden {
+      display: none;
+    }
+
+    .name-gate__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .name-gate__content {
+      position: relative;
+      z-index: 1;
+      max-width: 380px;
+      width: 90%;
+      background: #0b1b3b;
+      color: #f9fafb;
+      padding: 1.5rem 1.4rem;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.6);
+    }
+
+    .name-gate__label {
+      display: block;
+      margin-top: 0.7rem;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .name-gate__row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .name-gate__row > div {
+      flex: 1;
+    }
+
+    .name-gate__input,
+    .name-gate__select {
+      width: 100%;
+      padding: 0.45rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #cbd5f5;
+      font-size: 0.92rem;
+    }
+
+    .name-gate__input:focus,
+    .name-gate__select:focus {
+      outline: 2px solid #ffb400;
+      outline-offset: 2px;
+    }
+
+    .name-gate__error {
+      min-height: 1.1em;
+      margin-top: 0.25rem;
+      color: #fed7d7;
+      font-size: 0.82rem;
+    }
+
+    .name-gate__submit {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border-radius: 999px;
+      border: none;
+      background: #ffb400;
+      color: #0b1b3b;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .name-gate__submit:hover {
+      background: #ffd260;
+    }
+
+    .name-gate__secondary {
+      margin-top: 0.5rem;
+      width: 100%;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid #cbd5f5;
+      background: transparent;
+      color: #e5e7eb;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+
+    .name-gate__toggle {
+      margin-top: 0.6rem;
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    .name-gate__toggle button {
+      border: none;
+      background: none;
+      color: #ffb400;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.82rem;
+      padding: 0;
+    }
+
+    /* ---------- BREVET BLANC PAGES ---------- */
+    .bb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem;
+      margin-top: 1.2rem;
+    }
+
+    @media (max-width: 780px) {
+      .bb-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .bb-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .bb-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .bb-card-tag {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .bb-card-link {
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .bb-section {
+      margin-top: 0.8rem;
+    }
+
+    .bb-section-title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .bb-section-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    /* ---------- CLASSEMENT / XP PAGE ---------- */
+    .xp-summary {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1rem 1rem 1.1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      margin-top: 1.2rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .xp-summary p {
+      margin: 0.1rem 0;
+    }
+
+    .ranking-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 780px) {
+      .ranking-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .ranking-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1rem 1rem 1.1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+    }
+
+    .ranking-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .ranking-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    table.ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    table.ranking-table th,
+    table.ranking-table td {
+      padding: 0.3rem 0.35rem;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    table.ranking-table th {
+      font-weight: 600;
+      background: #f9fafb;
+    }
+
+    table.ranking-table tr.highlight {
+      background: #fef3c7;
+    }
+
+    .muted {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+/* ---------- PAGE ADMIN ---------- */
+.admin-page {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  border: 2px solid #ff6b6b;
+  box-shadow: 0 8px 18px rgba(255, 107, 107, 0.15);
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #ffe066;
+}
+
+.admin-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #c92a2a;
+}
+
+.admin-badge {
+  background: #ff6b6b;
+  color: #ffffff;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  padding: 1.2rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.admin-stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.admin-stat-label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.admin-section {
+  margin-top: 2rem;
+}
+
+.admin-section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.admin-users-table thead {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.admin-users-table th {
+  padding: 0.8rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.admin-users-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-users-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.admin-users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-btn {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.admin-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.admin-btn-delete {
+  background: #ff6b6b;
+  color: #ffffff;
+}
+
+.admin-btn-delete:hover {
+  background: #fa5252;
+}
+
+.admin-btn-edit {
+  background: var(--accent);
+  color: #111827;
+  margin-right: 0.5rem;
+}
+
+.admin-btn-edit:hover {
+  background: #ffd43b;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-warning {
+  background: #fff3bf;
+  border: 2px solid #ffd43b;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #862e9c;
+}
+
+.message-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.message-card.unread {
+    border-left: 4px solid #3b82f6;
+    background: #eff6ff;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.message-from {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.message-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.message-subject {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.message-body {
+    color: var(--text-main);
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.message-actions {
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.message-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+
+.admin-edit-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-edit-modal.hidden {
+  display: none;
+}
+
+.admin-edit-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.admin-edit-content {
+  position: relative;
+  z-index: 1;
+  max-width: 500px;
+  width: 90%;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.admin-edit-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.admin-edit-form label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.admin-edit-form input,
+.admin-edit-form select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5f5;
+  font-size: 0.92rem;
+}
+
+.admin-edit-form input:focus,
+.admin-edit-form select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.admin-edit-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.admin-edit-btn-save {
+  flex: 1;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #0b1b3b;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.admin-edit-btn-save:hover {
+  background: #ffd43b;
+}
+
+.admin-edit-btn-cancel {
+  flex: 1;
+  padding: 0.7rem;
+  border: 1px solid #cbd5f5;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.admin-edit-btn-cancel:hover {
+  background: #f9fafb;
+}
+
+/* ========== MON COMPTE PAGE ========== */
+.account-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-size: 1.3em;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.account-form {
+    max-width: 500px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.form-group textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+.message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 6px;
+    display: none;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .account-form {
+        max-width: 100%;
+    }
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">MASTER 3ÈME</div>
+      <nav>
+        <div class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+          <a href="#accueil" data-page="accueil" class="active-link">Accueil</a>
+          <a href="#ressources" data-page="ressources">Ressources (Fiches)</a>
+          <a href="#brevet-blanc" data-page="brevet-blanc">Brevet Blanc</a>
+          <a href="#outils" data-page="outils">Outils</a>
+          <a href="#agenda" data-page="agenda">Agenda & Suivi</a>
+          <a href="#classement" data-page="classement">Classement / XP</a>
+          <a href="#mon-compte" data-page="mon-compte">👤 Mon Compte</a>
+          <a href="#admin" data-page="admin" id="admin-nav-link" style="display: none;">🔐 Admin</a>
+
+        </div>
+      </nav>
+
+      <div id="welcome-bar" class="welcome-bar" aria-live="polite">
+        <span id="welcome-message"></span>
+        <button id="change-user-btn" type="button" class="welcome-link">
+          Changer d’utilisateur
+        </button>
+        <button id="logout-btn" type="button" class="welcome-link">
+          Se déconnecter
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MODALE D’AUTHENTIFICATION : INSCRIPTION + CONNEXION -->
+  <div
+    id="auth-gate"
+    class="name-gate name-gate--hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="auth-gate-title"
+  >
+    <div class="name-gate__backdrop"></div>
+    <div class="name-gate__content" role="document">
+      <h2 id="auth-gate-title">Bienvenue sur Master 3ème</h2>
+      <p id="auth-gate-desc">
+        Crée ton compte ou connecte-toi pour sauvegarder ta progression.
+      </p>
+
+      <form id="auth-form" novalidate>
+        <input type="hidden" id="auth-mode" value="signup" />
+
+        <div class="name-gate__row">
+          <div>
+            <label for="first-name" class="name-gate__label">Prénom</label>
+            <input
+              id="first-name"
+              name="firstName"
+              type="text"
+              class="name-gate__input"
+              autocomplete="given-name"
+              required
+              minlength="2"
+              maxlength="50"
+            />
+          </div>
+          <div>
+            <label for="last-name" class="name-gate__label">Nom</label>
+            <input
+              id="last-name"
+              name="lastName"
+              type="text"
+              class="name-gate__input"
+              autocomplete="family-name"
+              required
+              minlength="2"
+              maxlength="50"
+            />
+          </div>
+        </div>
+
+        <label for="class-name" class="name-gate__label">Classe</label>
+        <select
+          id="class-name"
+          name="className"
+          class="name-gate__select"
+          required
+        >
+          <option value="">Choisis ta classe</option>
+          <option value="3º1">3º1</option>
+          <option value="3º2">3º2</option>
+          <option value="3º3">3º3</option>
+          <option value="3º4">3º4</option>
+          <option value="3º5">3º5</option>
+        </select>
+
+        <label for="password" class="name-gate__label">Mot de passe</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          class="name-gate__input"
+          autocomplete="new-password"
+          required
+          minlength="4"
+          maxlength="50"
+        />
+
+        <p id="auth-error" class="name-gate__error" role="alert" aria-live="assertive"></p>
+
+        <button type="submit" class="name-gate__submit" id="auth-submit-btn">
+          Créer mon compte
+        </button>
+
+        <p class="name-gate__toggle">
+          <span id="auth-toggle-text">Tu as déjà un compte ?</span>
+          <button type="button" id="auth-toggle-btn">Se connecter</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <noscript>
+    <main>
+      <h1>Bienvenue</h1>
+      <p>Active JavaScript pour utiliser ce site.</p>
+    </main>
+  </noscript>
+
+  <main>
+    <!-- ACCUEIL -->
+    <section id="accueil" class="page active">
+      <div class="hero">
+        <div>
+          <h1 class="hero-title">MASTER 3ÈME : Votre Brevet, maîtrisé.</h1>
+          <p class="hero-subtitle">
+            La plateforme unique pour organiser, réviser et dominer votre année de Troisième, sans stress et avec une méthode claire.
+          </p>
+          <div class="hero-badges">
+            <span class="hero-badge">📚 Toutes les matières</span>
+            <span class="hero-badge">⏱️ Objectif Brevet 2025</span>
+            <span class="hero-badge">✅ Suivi de progression</span>
+          </div>
+          <a href="#ressources" data-link="ressources">
+            <button class="cta-primary">
+              LANCER MES RÉVISIONS <span>🚀</span>
+            </button>
+          </a>
+        </div>
+        <aside class="hero-side">
+          <p class="hero-side-title">Pourquoi utiliser Master 3ème ?</p>
+          <ul class="hero-side-list">
+            <li>✅ Fiches organisées par matière.</li>
+            <li>✅ Liens vers cartes mentales, quiz et flashcards.</li>
+            <li>✅ Outils pour calculer points et moyenne.</li>
+            <li>✅ Agenda connecté à ton planning réel.</li>
+          </ul>
+          <p class="hero-side-tagline">
+            Commence aujourd'hui, avance un peu chaque semaine, et arrive serein au Brevet.
+          </p>
+        </aside>
+      </div>
+
+      <div class="alert-urgent" aria-label="Annonces urgentes">
+        <div class="alert-urgent-title">🚨 ANNONCES URGENTES 🚨</div>
+        <ul class="alert-urgent-list">
+          <li>Simule dès maintenant tes points au Brevet pour fixer ton objectif.</li>
+          <li>Ajoute les dates de tes contrôles importants dans l'agenda.</li>
+          <li>Planifie au moins 2 séances de révision par semaine, par matière clé.</li>
+        </ul>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div>
+            <div class="feature-icon">📑</div>
+            <h3 class="feature-title">Fiches & Ressources</h3>
+            <p class="feature-text">
+              Accède aux fiches de révision, cartes mentales, quiz et exercices pour chaque matière du Brevet.
+            </p>
+          </div>
+          <a href="#ressources" data-link="ressources" class="feature-link">
+            Aller aux ressources <span>→</span>
+          </a>
+        </article>
+
+        <article class="feature-card">
+          <div>
+            <div class="feature-icon">🧰</div>
+            <h3 class="feature-title">Outils</h3>
+            <p class="feature-text">
+              Utilise les calculateurs de points et de moyenne générale pour suivre ton niveau.
+            </p>
+          </div>
+          <a href="#outils" data-link="outils" class="feature-link">
+            Découvrir les outils <span>→</span>
+          </a>
+        </article>
+
+        <article class="feature-card">
+          <div>
+            <div class="feature-icon">🗓️</div>
+            <h3 class="feature-title">Agenda & Suivi</h3>
+            <p class="feature-text">
+              Organise tes semaines, note tes contrôles et visualise ton planning.
+            </p>
+          </div>
+          <a href="#agenda" data-link="agenda" class="feature-link">
+            Voir l'agenda <span>→</span>
+          </a>
+        </article>
+
+        <article class="feature-card">
+          <div>
+            <div class="feature-icon">🧪</div>
+            <h3 class="feature-title">Brevet Blanc</h3>
+            <p class="feature-text">
+              Retrouve des sujets complets de Brevet blanc et leurs corrections pour t’entraîner.
+            </p>
+          </div>
+          <a href="#brevet-blanc" data-link="brevet-blanc" class="feature-link">
+            Accéder aux Brevets blancs <span>→</span>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- RESSOURCES INDEX -->
+    <section id="ressources" class="page">
+      <h2 class="section-title">Ressources par matière</h2>
+      <p class="section-subtitle">
+        Choisis une matière pour accéder aux fiches de révision, cartes mentales, quiz, exercices, évaluations d'entraînement et sites tout-en-un.
+      </p>
+
+      <div class="subjects-grid">
+        <article class="subject-card">
+          <h3 class="subject-title">Mathématiques</h3>
+          <p class="subject-tag">Algèbre · Géométrie · Problèmes</p>
+          <p class="subject-desc">
+            Fiches, exercices et quiz pour maîtriser les bases en calcul, fonctions, statistiques et géométrie.
+          </p>
+          <a href="#ressources-maths" data-link="ressources-maths" class="subject-link">
+            Ouvrir la page Mathématiques →
+          </a>
+        </article>
+
+        <article class="subject-card">
+          <h3 class="subject-title">Français</h3>
+          <p class="subject-tag">Langue · Rédaction · Lecture</p>
+          <p class="subject-desc">
+            Méthodes de rédaction, fiches de grammaire, quiz et exercices pour l’épreuve écrite.
+          </p>
+          <a href="#ressources-francais" data-link="ressources-francais" class="subject-link">
+            Ouvrir la page Français →
+          </a>
+        </article>
+
+        <article class="subject-card">
+          <h3 class="subject-title">Histoire</h3>
+          <p class="subject-tag">Repères · Thèmes majeurs</p>
+          <p class="subject-desc">
+            Fiches chronologiques, cartes mentales et quiz sur les grands événements du programme.
+          </p>
+          <a href="#ressources-histoire" data-link="ressources-histoire" class="subject-link">
+            Ouvrir la page Histoire →
+          </a>
+        </article>
+
+        <article class="subject-card">
+          <h3 class="subject-title">Géographie</h3>
+          <p class="subject-tag">Cartes · Territoires</p>
+          <p class="subject-desc">
+            Cartes, schémas et exercices pour les espaces français et mondiaux.
+          </p>
+          <a href="#ressources-geographie" data-link="ressources-geographie" class="subject-link">
+            Ouvrir la page Géographie →
+          </a>
+        </article>
+
+        <article class="subject-card">
+          <h3 class="subject-title">EMC</h3>
+          <p class="subject-tag">Valeurs · Citoyenneté</p>
+          <p class="subject-desc">
+            Ressources sur les valeurs de la République, les droits, les devoirs et la vie démocratique.
+          </p>
+          <a href="#ressources-emc" data-link="ressources-emc" class="subject-link">
+            Ouvrir la page EMC →
+          </a>
+        </article>
+
+        <article class="subject-card">
+          <h3 class="subject-title">Physique - Chimie</h3>
+          <p class="subject-tag">Lois · Expériences</p>
+          <p class="subject-desc">
+            Lois physiques, modèles, réactions chimiques et évaluations d’entraînement.
+          </p>
+          <a href="#ressources-physique" data-link="ressources-physique" class="subject-link">
+            Ouvrir la page Physique - Chimie →
+          </a>
+        </article>
+
+        <article class="subject-card">
+          <h3 class="subject-title">Sciences de la Vie & de la Terre</h3>
+          <p class="subject-tag">Corps humain · Environnement</p>
+          <p class="subject-desc">
+            Fiches et activités sur le vivant, la planète, les risques et la santé.
+          </p>
+          <a href="#ressources-svt" data-link="ressources-svt" class="subject-link">
+            Ouvrir la page SVT →
+          </a>
+        </article>
+
+        <article class="subject-card">
+          <h3 class="subject-title">DNL Anglais (Mme Houdant)</h3>
+          <p class="subject-tag">CLIL · Anglais scientifique</p>
+          <p class="subject-desc">
+            Ressources bilingues, vocabulaire scientifique et activités pour la DNL Anglais.
+          </p>
+          <a href="#ressources-dnl" data-link="ressources-dnl" class="subject-link">
+            Ouvrir la page DNL Anglais →
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : MATHS -->
+    <section id="ressources-maths" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Mathématiques</h2>
+          </div>
+          <span class="pill">Brevet · Mathématiques</span>
+        </div>
+        <p class="subject-page-tagline">
+          Fiches de révision, exercices, flashcards et évaluations d’entraînement pour maîtriser nombres, fonctions, statistiques et géométrie.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiche de révision / Leçons</summary>
+            <div>
+              <p>Fiches synthétiques et leçons pour revoir les notions clés de Mathématiques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales pour retenir formules, propriétés et méthodes de résolution.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+            <div>
+              <p>Cartes question / réponse pour automatiser les réflexes de calcul et les formules.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactif</summary>
+            <div>
+              <p>Quiz chronométrés pour t’entraîner sur les chapitres importants du Brevet.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos d’explication et corrections guidées d’exercices types.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">✏️</span>Exercices</summary>
+            <div>
+              <p>Séries d’exercices classés par difficulté pour chaque chapitre.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📝</span>Évaluation d’entraînement</summary>
+            <div>
+              <p>Sujets d’évaluation type contrôle ou Brevet pour vérifier tes acquis.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : FRANCAIS -->
+    <section id="ressources-francais" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Français</h2>
+          </div>
+          <span class="pill">Brevet · Français</span>
+        </div>
+        <p class="subject-page-tagline">
+          Fiches, leçons et entraînements pour la langue, la compréhension et la rédaction au Brevet.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiche de révision / Leçons</summary>
+            <div>
+              <p>Fiches et leçons pour revoir grammaire, conjugaison, compréhension et rédaction.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales sur les genres, types de textes et démarches de rédaction.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+            <div>
+              <p>Flashcards pour mémoriser vocabulaire, conjugaisons et notions de langue.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactif</summary>
+            <div>
+              <p>Quiz pour t’entraîner sur l’orthographe, la conjugaison et la compréhension de texte.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos expliquant les méthodes pour réussir la compréhension et la rédaction.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">✏️</span>Exercices</summary>
+            <div>
+              <p>Exercices ciblés de langue, réécriture et rédaction courte.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📝</span>Évaluation d’entraînement</summary>
+            <div>
+              <p>Sujets d’évaluation type Brevet avec questions de langue et rédaction.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : HISTOIRE -->
+    <section id="ressources-histoire" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Histoire</h2>
+          </div>
+          <span class="pill">Brevet · Histoire</span>
+        </div>
+        <p class="subject-page-tagline">
+          Repères, thèmes majeurs et entraînements pour les épreuves d’Histoire au Brevet.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiche de révision / Leçons</summary>
+            <div>
+              <p>Fiches et leçons sur les grandes périodes, repères et thèmes du programme.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales pour organiser dates, acteurs et causes / conséquences.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+            <div>
+              <p>Flashcards pour mémoriser dates, personnages et notions clés d’Histoire.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactif</summary>
+            <div>
+              <p>Quiz pour vérifier tes repères historiques et tes connaissances.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos sur les grandes périodes et événements importants.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">✏️</span>Exercices</summary>
+            <div>
+              <p>Exercices de repérage chronologique et analyse de documents.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📝</span>Évaluation d’entraînement</summary>
+            <div>
+              <p>Sujets d’évaluation type Brevet en Histoire.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : GEOGRAPHIE -->
+    <section id="ressources-geographie" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Géographie</h2>
+          </div>
+          <span class="pill">Brevet · Géographie</span>
+        </div>
+        <p class="subject-page-tagline">
+          Cartes, schémas et notions pour réussir les épreuves de Géographie.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiche de révision / Leçons</summary>
+            <div>
+              <p>Fiches et leçons sur les espaces, territoires et enjeux géographiques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales pour relier notions de développement, urbanisation et mondialisation.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+            <div>
+              <p>Flashcards pour mémoriser vocabulaire et repères géographiques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactif</summary>
+            <div>
+              <p>Quiz sur les cartes, les paysages et les grands repères.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos explicatives sur les différents espaces étudiés.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">✏️</span>Exercices</summary>
+            <div>
+              <p>Exercices sur l’analyse de cartes, croquis et études de cas.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📝</span>Évaluation d’entraînement</summary>
+            <div>
+              <p>Sujets d’évaluation type Brevet en Géographie.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : EMC -->
+    <section id="ressources-emc" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">EMC</h2>
+          </div>
+          <span class="pill">Brevet · EMC</span>
+        </div>
+        <p class="subject-page-tagline">
+          Valeurs, droits, devoirs et citoyenneté : toutes les ressources pour l’EMC.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiche de révision / Leçons</summary>
+            <div>
+              <p>Fiches et leçons sur les valeurs de la République, les droits et les libertés.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales organisant les notions de valeurs, droits et devoirs.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+            <div>
+              <p>Flashcards pour mémoriser vocabulaire et concepts d’EMC.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactif</summary>
+            <div>
+              <p>Quiz pour vérifier ta compréhension des règles, institutions et principes.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos expliquant les institutions, la citoyenneté et la vie démocratique.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">✏️</span>Exercices</summary>
+            <div>
+              <p>Études de cas et questions d’argumentation sur des situations d’EMC.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📝</span>Évaluation d’entraînement</summary>
+            <div>
+              <p>Évaluations type Brevet intégrant des questions d’EMC.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : PHYSIQUE-CHIMIE -->
+    <section id="ressources-physique" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Physique - Chimie</h2>
+          </div>
+          <span class="pill">Brevet · Physique-Chimie</span>
+        </div>
+        <p class="subject-page-tagline">
+          Lois, modèles et expériences pour l’épreuve de Physique-Chimie.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiche de révision / Leçons</summary>
+            <div>
+              <p>Fiches et leçons sur électricité, énergie, matière et transformations.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales reliant phénomènes, lois et grandeurs physiques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+            <div>
+              <p>Flashcards pour mémoriser symboles, unités et formules.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactif</summary>
+            <div>
+              <p>Quiz pour t’entraîner sur les chapitres essentiels de Physique-Chimie.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos d’expériences et de correction d’exercices.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">✏️</span>Exercices</summary>
+            <div>
+              <p>Feuilles d’exercices sur les lois et montages expérimentaux.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📝</span>Évaluation d’entraînement</summary>
+            <div>
+              <p>Sujets d’évaluation type Brevet en Physique-Chimie.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : SVT -->
+    <section id="ressources-svt" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Sciences de la Vie & de la Terre</h2>
+          </div>
+          <span class="pill">Brevet · SVT</span>
+        </div>
+        <p class="subject-page-tagline">
+          Corps humain, planète et environnement : toutes les ressources pour la SVT.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiche de révision / Leçons</summary>
+            <div>
+              <p>Fiches et leçons sur organisation du vivant, reproduction, santé et risques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales reliant notions, expériences et vocabulaire scientifique.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+            <div>
+              <p>Flashcards pour mémoriser définitions et mots de vocabulaire de SVT.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactif</summary>
+            <div>
+              <p>Quiz sur les grands thèmes de SVT au programme de 3ᵉ.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos expliquant les chapitres clés et les démarches expérimentales.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">✏️</span>Exercices</summary>
+            <div>
+              <p>Exercices de lecture de documents scientifiques et de rédaction de réponses.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📝</span>Évaluation d’entraînement</summary>
+            <div>
+              <p>Sujets d’évaluation type Brevet en SVT.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : DNL ANGLAIS -->
+    <section id="ressources-dnl" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">DNL Anglais (Mme Houdant)</h2>
+          </div>
+          <span class="pill">DNL · Anglais</span>
+        </div>
+        <p class="subject-page-tagline">
+          Ressources bilingues pour travailler les notions scientifiques en anglais.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiche de révision / Leçons</summary>
+            <div>
+              <p>Fiches et leçons de vocabulaire scientifique anglais/français.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales bilingues reliant vocabulaire et concepts scientifiques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+            <div>
+              <p>Flashcards pour mémoriser le lexique spécialisé en anglais.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactif</summary>
+            <div>
+              <p>Quiz en anglais sur le vocabulaire et les notions vues en DNL.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos en anglais expliquant des notions scientifiques simples.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">✏️</span>Exercices</summary>
+            <div>
+              <p>Exercices de compréhension écrite et orale en anglais scientifique.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📝</span>Évaluation d’entraînement</summary>
+            <div>
+              <p>Évaluations type contrôle en DNL Anglais.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREVET BLANC INDEX -->
+    <section id="brevet-blanc" class="page">
+      <h2 class="section-title">Brevet Blanc</h2>
+      <p class="section-subtitle">
+        Prépare-toi spécifiquement pour les Brevets blancs : ressources ciblées, sujets d’entraînement et corrections détaillées pour chaque épreuve.
+      </p>
+
+      <div class="bb-grid">
+        <article class="bb-card">
+          <h3 class="bb-card-title">Français</h3>
+          <p class="bb-card-tag">Compréhension · Dictée · Rédaction</p>
+          <p class="subject-desc">
+            Entraîne-toi sur des sujets complets de Brevet blanc en Français, avec ressources et corrections.
+          </p>
+          <a href="#bb-francais" data-link="bb-francais" class="bb-card-link">
+            Ouvrir la page Français (Brevet blanc) →
+          </a>
+        </article>
+
+        <article class="bb-card">
+          <h3 class="bb-card-title">Mathématiques</h3>
+          <p class="bb-card-tag">Problèmes · QCM · Calculs</p>
+          <p class="subject-desc">
+            Sujets de Brevet blanc en Mathématiques, corrigés et fiches ciblées pour chaque notion.
+          </p>
+          <a href="#bb-maths" data-link="bb-maths" class="bb-card-link">
+            Ouvrir la page Mathématiques (Brevet blanc) →
+          </a>
+        </article>
+
+        <article class="bb-card">
+          <h3 class="bb-card-title">Histoire-Géographie / EMC</h3>
+          <p class="bb-card-tag">Étude de docs · Rédaction</p>
+          <p class="subject-desc">
+            Entraînements complets sur les épreuves d’Histoire-Géographie et EMC du Brevet blanc.
+          </p>
+          <a href="#bb-histgeo-emc" data-link="bb-histgeo-emc" class="bb-card-link">
+            Ouvrir la page Histoire-Géo / EMC (Brevet blanc) →
+          </a>
+        </article>
+
+        <article class="bb-card">
+          <h3 class="bb-card-title">Sciences</h3>
+          <p class="bb-card-tag">SVT · Physique-Chimie · Techno</p>
+          <p class="subject-desc">
+            Ressources et sujets d’entraînement en Sciences pour l’épreuve de Brevet blanc.
+          </p>
+          <a href="#bb-sciences" data-link="bb-sciences" class="bb-card-link">
+            Ouvrir la page Sciences (Brevet blanc) →
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- BREVET BLANC : FRANCAIS -->
+    <section id="bb-francais" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
+            <h2 class="subject-page-title">Brevet Blanc – Français</h2>
+          </div>
+          <span class="pill">Français · Brevet blanc</span>
+        </div>
+        <p class="subject-page-tagline">
+          Prépare les épreuves de compréhension, dictée et rédaction avec des ressources ciblées et des sujets complets de Brevet blanc.
+        </p>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Ressources</h3>
+          <p class="bb-section-subtitle">
+            Utilise ces ressources pour maîtriser méthodologie et notions avant de passer aux sujets d’entraînement.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
+              <div>
+                <p>Rappels rapides sur les points essentiels de l’épreuve (lecture, langue, rédaction).</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+              <div>
+                <p>Cours complets pour revoir la rédaction, l’argumentation et la lecture analytique.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🎥</span>Videos</summary>
+              <div>
+                <p>Vidéos expliquant la méthode pour la compréhension et la rédaction, avec exemples commentés.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+              <div>
+                <p>Flashcards pour réviser vocabulaire, figures de style et notions de grammaire.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
+              <div>
+                <p>Quiz chronométrés pour t’entraîner sur la langue et la compréhension comme au Brevet.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+              <div>
+                <p>Cartes mentales pour visualiser les étapes de la rédaction et les types de questions de l’épreuve.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
+          <p class="bb-section-subtitle">
+            Entraîne-toi avec des sujets complets de Brevet blanc en Français.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
+              <div>
+                <p>Des sujets au format officiel avec texte, questions, dictée et rédaction.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
+          <p class="bb-section-subtitle">
+            Vérifie tes réponses et comprends les attentes du correcteur.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
+              <div>
+                <p>Corrigés expliqués pour chaque partie : compréhension, réécriture, dictée et rédaction.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREVET BLANC : MATHS -->
+<section id="bb-maths" class="page">
+  <div class="subject-page">
+    <div class="subject-page-header">
+      <div>
+        <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
+        <h2 class="subject-page-title">Brevet Blanc – Mathématiques</h2>
+      </div>
+      <span class="pill">Mathématiques · Brevet blanc</span>
+    </div>
+    <p class="subject-page-tagline">
+      Entraîne-toi sur des sujets complets de Mathématiques, avec fiches, exercices ciblés et corrections détaillées.
+    </p>
+
+    <div class="bb-section">
+      <h3 class="bb-section-title">Ressources</h3>
+      <p class="bb-section-subtitle">
+        Utilise ces ressources pour maîtriser méthodologie et notions avant de passer aux sujets d'entraînement.
+      </p>
+      <div class="resource-grid">
+        <details>
+          <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1YSGcnaisJOlbfpKT5KnJ10i47XQsEbPt/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              📖 Fonctions
+            </a>
+            <a href="https://drive.google.com/file/d/13uXFWqAyCqQMscIngNV36h-QlpuDE2qB/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🔢 Arithmétique = Diviseurs, Nombres Premiers, Fractions Irréductibles
+            </a>
+            <a href="https://drive.google.com/file/d/1M7RC1bw3hA6ZHQYV-QgSGPrkRWDLwYYN/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              📝 Calcul Littéral & Identité Remarquable
+            </a>
+            <a href="https://drive.google.com/file/d/1F7yoos5FI9dZveNPdCmbh6jervIOpAXV/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+  📐 Théorème de Thalès
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/18dpx71vlQrfu7VZ_aoBsSbCZ2tAdN7yt/view?usp=share_link" target="_blank" class="resource-link" rel="noopener">
+              🔢 Arithmétique = Diviseurs, Nombres Premiers, Fractions Irréductibles
+            </a>
+            <a href="https://drive.google.com/file/d/1sexkNIsCfDGdGiwZSQwvvu1U4ZmPpFeM/view?usp=share_link" target="_blank" class="resource-link" rel="noopener">
+              📝 Calcul Littéral et Identités Remarquables
+            </a>
+            <a href="https://drive.google.com/file/d/1d8rNxUjlCPuABxavipE3BLnUUJBTHvFR/view?usp=share_link" target="_blank" class="resource-link" rel="noopener">
+              📈 Fonction
+            </a>
+            <a href="https://drive.google.com/file/d/1QskIWtjBgE1kblVgCVI4jKUR3lfTvjET/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+  📐 Théorème de Thalès
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+          <div class="resource-links">
+            <a href="https://youtu.be/tDgTOkldMSQ?si=zd5G7J1QSp5zXDv0" target="_blank" class="resource-link" rel="noopener">
+              🔢 Arithmétique = Diviseurs, Nombres Premiers, Fractions Irréductibles
+            </a>
+            <a href="https://youtu.be/9DPvnj6Cl78?si=s5p4-SJAXDPtBV95" target="_blank" class="resource-link" rel="noopener">
+              📈 Fonctions
+            </a>
+            <a href="https://drive.google.com/file/d/1dJ1wVJsyQwOyFCk5hi2pZA20Z-DJvxP-/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              📈 Fonctions nº2
+            </a>
+            <a href="https://youtu.be/q3Bn4a3LKIA?si=_2Ps-TVHG4Wr3Hyt" target="_blank" class="resource-link" rel="noopener">
+              📝 Calcul Littéral & Identités Remarquables
+            </a>
+            <a href="https://drive.google.com/file/d/1d9bSW_mnkMSGgdtb9LdU3BFSnlYiSCuQ/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              📝 Calcul Littéral & Identités Remarquables nº2
+            </a>
+            <a href="https://youtu.be/qNY8HPNGXb4?si=ygaqdunyqvEuFbF0" target="_blank" class="resource-link" rel="noopener">
+              📐 Théorème de Thalès
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">🗂️</span>Flashcards (Quizlet)</summary>
+          <div class="resource-links">
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/maths-3eme-division-euclidienne-nombres-premiers-et-criteres-de-divisibilite-1126165421?i=5us7ka&x=1jqY" target="_blank" class="resource-link" rel="noopener">
+              🔢 Arithmétique = Diviseurs, Nombres Premiers, Fractions Irréductibles
+            </a>
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/notions-de-fonction-en-3eme-definitions-representations-et-calculs-1126164569?i=5us7ka&x=1jqY" target="_blank" class="resource-link" rel="noopener">
+              📈 Fonctions
+            </a>
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/mathematiques-developpement-identites-remarquables-et-factorisation-1126164755?i=5us7ka&x=1jqY" target="_blank" class="resource-link" rel="noopener">
+              📝 Calcul Littéral & Identités Remarquables
+            </a>
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/theoreme-de-thales-1126567898?i=5us7ka&x=1jqt" target="_blank" class="resource-link" rel="noopener">
+  📐 Théorème de Thalès
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
+          <div class="resource-links">
+            <a href="https://gemini.google.com/share/752d1265729f" target="_blank" class="resource-link" rel="noopener">
+              🟢 Facile Calcul Littéral & Identités Remarquables
+            </a>
+            <a href="https://gemini.google.com/share/6ed01de56f40" target="_blank" class="resource-link" rel="noopener">
+              🟡 Moyen Calcul Littéral & Identités Remarquables
+            </a>
+            <a href="https://gemini.google.com/share/0e16966a67df" target="_blank" class="resource-link" rel="noopener">
+              🔴 Difficile Calcul Littéral & Identités Remarquables
+            </a>
+            <a href="https://gemini.google.com/share/7895323ca4db" target="_blank" class="resource-link" rel="noopener">
+              🟢 Facile Arithmétique
+            </a>
+            <a href="https://gemini.google.com/share/97cd67ca9e29" target="_blank" class="resource-link" rel="noopener">
+              🟡 Moyen Arithmétique
+            </a>
+            <a href="https://gemini.google.com/share/662a1c12e81e" target="_blank" class="resource-link" rel="noopener">
+              🔴 Difficile Arithmétique
+            </a>
+            <a href="https://gemini.google.com/share/cf05dab3582e" target="_blank" class="resource-link" rel="noopener">
+              🟢 Facile Fonctions
+            </a>
+            <a href="https://gemini.google.com/share/f22cb244c08f" target="_blank" class="resource-link" rel="noopener">
+              🟡 Moyen Fonctions
+            </a>
+            <a href="https://gemini.google.com/share/c7f160be2ee6" target="_blank" class="resource-link" rel="noopener">
+              🔴 Difficile Fonctions
+            </a>
+            <a href="https://gemini.google.com/share/df3a81d87cf5" target="_blank" class="resource-link" rel="noopener">
+  🟢 Facile Théorème de Thalès
+            </a>
+            <a href="https://gemini.google.com/share/107b9e173c7e" target="_blank" class="resource-link" rel="noopener">
+  🟡 Moyen Théorème de Thalès
+            </a>
+            <a href="https://gemini.google.com/share/7e4a45dda231" target="_blank" class="resource-link" rel="noopener">
+  🔴 Difficile Théorème de Thalès
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1LlRTh6hiCzlUpJgTwtl8RbbYXbRyz20b/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🔢 Arithmétique = Diviseurs, Nombres Premiers, Fractions Irréductibles
+            </a>
+            <a href="https://drive.google.com/file/d/1g9OzVYbPhuRQrCAE8ruZHNbDbhzqCj-d/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              📈 Fonction
+            </a>
+            <a href="https://drive.google.com/file/d/17fBoPr5FYSD1TNWQpjV8uEKl9oPhQH7B/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              📝 Calcul Littéral & Identités Remarquables
+            </a>
+            <a href="https://drive.google.com/file/d/1IN7kR7DEx34EENZcFZHeSzi7PmKiECri/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+  📐 Théorème de Thalès
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="bb-section">
+      <h3 class="bb-section-title">Examens d'entraînement type Brevet blanc</h3>
+      <p class="bb-section-subtitle">
+        Entraîne-toi avec des sujets complets de Brevet blanc en Mathématiques.
+      </p>
+      <div class="resource-grid">
+        <details>
+          <summary><span class="summary-prefix">📝</span>Sujets complets 2025</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1ZjQLDvM0ThSs4iBW11YhadYahQWuslrM/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌴 Polynésie 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1njyPJ2Yyj7tjpQ-IUR0J0eodJxX0vcvV/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏯 Asie 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1eeE31imZV7NqXd07gLwfgaTMy6_d9nwr/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌍 Centres Étrangers (G1) 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1uLpne64F6pT9u7zjt-gZzqkBaFgyuf8h/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏙️ Métropole 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1ao0DIvhkET8XHeumTyT5tNhnNG0oxYW1/view?usp=drive_link" target="_blank" class="resource-link" rel="noopener">
+              🇨🇦 Amérique du Nord 2025
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">📝</span>Sujets complets 2024</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1xxi1A1Xt1CMgtchYvLnn5YkBCClNu6JA/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌴 Polynésie 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1F68RF-o085-_qfJFjOHEqdfVpGoIaLMU/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏯 Asie 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1qcWKfZigQ1O9a9jijAhDh2EXVGekrcmh/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌍 Centres Étrangers 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1ZAxNrKmxCUeAHstw0dHa9rPNhiSHJEga/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏙️ Métropole 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1aKfmd49yYiLLAEQAT538DcfWLDFHiEQ5/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🇨🇦 Amérique du Nord 2024
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="bb-section">
+      <h3 class="bb-section-title">Corrections des examens d'entraînement</h3>
+      <p class="bb-section-subtitle">
+        Vérifie tes réponses et comprends les attentes du correcteur.
+      </p>
+      <div class="resource-grid">
+        <details>
+          <summary><span class="summary-prefix">✅</span>Corrigés 2025</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1vE_17p5xK9_6rmIjsmt6ZJQ9mn9ACK8E/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🇨🇦 AN 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1cmSQemBmYK-72RugPV1mN-YYVixGrS3-/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏯 Asie 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1Sup2LVgF3V1uzBk1LtyF5nX-pQiOmsFQ/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌍 CEG1 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1OX9mtCbdf00YD_8kfsFm7mpReLgKuxb3/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏙️ FR 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1uIC-5xGuQU1daHy6-vnadRdaNS_ul0Js/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌴 PLYN 2025
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">✅</span>Corrigés 2024</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1k1JjVquMUaDNxkEqfu6ESaQaCnmR4U66/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🇨🇦 AN 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1dGRz507ZYVWHZZP4-Zt8YZsv7v2cUWc0/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌍 CE 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1egWJW7aRjBs12xRbOE4WDFDtJbz_g2OT/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏯 Asie 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1wKjD2bcD9TcdZJNifysahJCUGqrW3eEX/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌴 Polynésie 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1KRxCZ_k9B_mr-YwUuQCI4M2HWO7Lw9EG/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏙️ FR 2024
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- BREVET BLANC : HISTOIRE-GÉO / EMC -->
+<section id="bb-histgeo-emc" class="page">
+  <div class="subject-page">
+    <div class="subject-page-header">
+      <div>
+        <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
+        <h2 class="subject-page-title">Brevet Blanc – Histoire-Géographie / EMC</h2>
+      </div>
+      <span class="pill">Histoire-Géo / EMC · Brevet blanc</span>
+    </div>
+    <p class="subject-page-tagline">
+      Travaille sur des sujets d'Histoire-Géographie et EMC complets, avec ressources et corrigés pour l'épreuve de Brevet blanc.
+    </p>
+
+    <div class="bb-section">
+      <h3 class="bb-section-title">Ressources</h3>
+      <p class="bb-section-subtitle">
+        Utilise ces ressources pour maîtriser méthodologie et notions avant de passer aux sujets d'entraînement.
+      </p>
+      <div class="resource-grid">
+        <details>
+          <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1ateSzWuX4P6X8MyZEYum951_2dzewQlx/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌍 1ère Guerre Mondiale
+            </a>
+            <a href="https://drive.google.com/file/d/14aTzpvERiAMTAj_Jf03AA27cucsh6OJv/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              ⚖️ L'Entre-Deux-Guerres
+            </a>
+            <a href="https://drive.google.com/file/d/1m7Fywwc9IHv060l_GBDe02iTCsjmYz2f/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              💥 2nde Guerre Mondiale
+            </a>
+            <a href="https://drive.google.com/file/d/1_qlNUsH3k9ErTMmWAniQeGrioTvQBbal/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🇪🇺 L'Union Européenne
+            </a>
+            <a href="https://drive.google.com/file/d/1OWhtoxIpP-InE2IrO1yrkMSRmr_YRK6t/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌐 La France et L'UE Dans Le Monde
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1r7lx_LTuoVV-B8_4K40soofe83BptyMh/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌍 1ère Guerre Mondiale
+            </a>
+            <a href="https://drive.google.com/file/d/1Q6a2w6c8ESj7vcmuYIxoseWYKLu4VnVf/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              ⚖️ L'Entre-Deux-Guerres
+            </a>
+            <a href="https://drive.google.com/file/d/12e4Ar9TAbQgAUFG7-gZBLsdM2TTcEG3e/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              💥 2nde Guerre Mondiale
+            </a>
+            <a href="https://drive.google.com/file/d/1VypWtw-GeGhFfs9B_0AfCXIvui3kNjd0/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🇪🇺 L'Union Européenne
+            </a>
+            <a href="https://drive.google.com/file/d/1-spvPiL0hC95DgmZUfiS6Ai_nj-sVgA7/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌐 La France et L'UE Dans Le Monde
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+          <div class="resource-links">
+            <a href="https://youtu.be/OdXgdx7fJ_0?si=RV_A-h2G7bhrAK_s" target="_blank" class="resource-link" rel="noopener">
+              🌍 1ère Guerre Mondiale
+            </a>
+            <a href="https://youtu.be/Vc5yv9faFUk?si=FRwnl52WBusCrZY_" target="_blank" class="resource-link" rel="noopener">
+              ⚖️ L'Entre-Deux-Guerres
+            </a>
+            <a href="https://youtu.be/SWf0tRJUTX8?si=qtAJnrUw4UMFVmLl" target="_blank" class="resource-link" rel="noopener">
+              💥 2nde Guerre Mondiale
+            </a>
+            <a href="https://youtu.be/FYgj486o5bI?si=OEXr-1t37l1GgK3L" target="_blank" class="resource-link" rel="noopener">
+              🇪🇺 L'Union Européenne
+            </a>
+            <a href="https://youtu.be/7_DwbsQ3Oeo?si=wQI0mixu5ZBm3ykf" target="_blank" class="resource-link" rel="noopener">
+              🌐 La France et L'Union Européenne Dans Le Monde
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">🗂️</span>Flashcards (Quizlet)</summary>
+          <div class="resource-links">
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/guerre-mondiale-1-chronologie-violence-et-consequences-1126339735?i=5us7ka&x=1jqt" target="_blank" class="resource-link" rel="noopener">
+              🌍 1ère Guerre Mondiale
+            </a>
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/lentre-deux-guerres-1126339911?i=5us7ka&x=1jqt" target="_blank" class="resource-link" rel="noopener">
+              ⚖️ L'Entre-Deux-Guerres
+            </a>
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/la-seconde-guerre-mondiale-1126340060?i=5us7ka&x=1jqt" target="_blank" class="resource-link" rel="noopener">
+              💥 2nde Guerre Mondiale
+            </a>
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/lunion-europeenne-1126340381?i=5us7ka&x=1jqt" target="_blank" class="resource-link" rel="noopener">
+              🇪🇺 L'Union Européenne
+            </a>
+            <a href="https://quizlet.com/fr-fr/fiches-de-memorisation/la-france-et-lunion-europeenne-dans-le-monde-1126340512?i=5us7ka&x=1jqt" target="_blank" class="resource-link" rel="noopener">
+              🌐 La France et L'UE Dans Le Monde
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
+          <div class="resource-links">
+            <a href="https://gemini.google.com/share/48f7c07787b2" target="_blank" class="resource-link" rel="noopener">
+              🟢 1ère Guerre Mondiale Facile
+            </a>
+            <a href="https://gemini.google.com/share/62d637d2541d" target="_blank" class="resource-link" rel="noopener">
+              🟡 1ère Guerre Mondiale Moyen
+            </a>
+            <a href="https://gemini.google.com/share/402df8021d95" target="_blank" class="resource-link" rel="noopener">
+              🔴 1ère Guerre Mondiale Difficile
+            </a>
+            <a href="https://gemini.google.com/share/13e4ccec942c" target="_blank" class="resource-link" rel="noopener">
+              🟢 L'Entre-Deux-Guerres Facile
+            </a>
+            <a href="https://gemini.google.com/share/cc3bd7458ff4" target="_blank" class="resource-link" rel="noopener">
+              🟡 L'Entre-Deux-Guerres Moyen
+            </a>
+            <a href="https://gemini.google.com/share/8325694ab469" target="_blank" class="resource-link" rel="noopener">
+              🔴 L'Entre-Deux-Guerres Difficile
+            </a>
+            <a href="https://gemini.google.com/share/afb0552a59d7" target="_blank" class="resource-link" rel="noopener">
+              🟢 2nde Guerre Mondiale Facile
+            </a>
+            <a href="https://gemini.google.com/share/47b56ad97b41" target="_blank" class="resource-link" rel="noopener">
+              🟡 2nde Guerre Mondiale Moyen
+            </a>
+            <a href="https://gemini.google.com/share/b1359d7b8ff2" target="_blank" class="resource-link" rel="noopener">
+              🔴 2nde Guerre Mondiale Difficile
+            </a>
+            <a href="https://gemini.google.com/share/1e33c0a3cda1" target="_blank" class="resource-link" rel="noopener">
+              🟢 L'Union Européenne Facile
+            </a>
+            <a href="https://gemini.google.com/share/a7171cc6f2e5" target="_blank" class="resource-link" rel="noopener">
+              🟡 L'Union Européenne Moyen
+            </a>
+            <a href="https://gemini.google.com/share/0dcf8fbac53d" target="_blank" class="resource-link" rel="noopener">
+              🔴 L'Union Européenne Difficile
+            </a>
+            <a href="https://gemini.google.com/share/b6008c8f58df" target="_blank" class="resource-link" rel="noopener">
+              🟢 La France et L'UE Dans Le Monde Facile
+            </a>
+            <a href="https://gemini.google.com/share/04e7eb31aeba" target="_blank" class="resource-link" rel="noopener">
+              🟡 La France et L'UE Dans Le Monde Moyen
+            </a>
+            <a href="https://gemini.google.com/share/10bb8d4320f1" target="_blank" class="resource-link" rel="noopener">
+              🔴 La France et L'UE Dans Le Monde Difficile
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1HosD54hHbm8bCM6F4olTY7nI4UOTcuHJ/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌍 1ère Guerre Mondiale
+            </a>
+            <a href="https://drive.google.com/file/d/1f5AQtJAp5D_mq3HIQsEyiloE5on55oNE/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              ⚖️ L'Entre-Deux-Guerres
+            </a>
+            <a href="https://drive.google.com/file/d/1QReaMRED7YDW_IQvDpfr0OPLuSsrKmGN/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              💥 2nde Guerre Mondiale
+            </a>
+            <a href="https://drive.google.com/file/d/1NA-O0Mi_M8XV3r7YkvTpGDtOLhqwgm_A/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🇪🇺 L'Union Européenne
+            </a>
+            <a href="https://drive.google.com/file/d/1-VNZAFgMXvsgIwBo_4eJuotxTbNjdmlR/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌐 La France et L'UE Dans Le Monde
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="bb-section">
+      <h3 class="bb-section-title">Examens d'entraînement type Brevet blanc</h3>
+      <p class="bb-section-subtitle">
+        Entraîne-toi avec des sujets complets de Brevet blanc en Histoire-Géographie / EMC.
+      </p>
+      <div class="resource-grid">
+        <details>
+          <summary><span class="summary-prefix">📝</span>Sujets Brevet 2025</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1XUb6oOPxJRhrbLDXvck5NZcfUY7CGhpN/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏙️ FR 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1vxv0e3rUrn4rPJebTulN7DQXr3tawB5E/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🇨🇦 AN 2025
+            </a>
+            <a href="https://drive.google.com/file/d/1Sse2VOQQmMAZGSCCqeAb9ngUePXi3JKW/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏯 Asie 2025
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">📝</span>Sujets Brevet 2024</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1LxhUFtCtW-hUW-XUjs6VwsAOPvwCd0Tg/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏙️ FR 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1qa4GTE61XWmQPD01yVYDDcW7ybuNL_Xn/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🇨🇦 AN 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1nkTuFyuSLCxfDf9JLOiYUh595_FnnCjG/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🌍 CEG1 2024
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="bb-section">
+      <h3 class="bb-section-title">Corrections des examens d'entraînement</h3>
+      <p class="bb-section-subtitle">
+        Vérifie tes réponses et comprends les attentes du correcteur.
+      </p>
+      <div class="resource-grid">
+        <details>
+          <summary><span class="summary-prefix">✅</span>Corrigés 2025</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1R8rc5FvtlKCsCCQOpcm3NipbeuLdaL8y/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏙️ FR 2025
+            </a>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="summary-prefix">✅</span>Corrigés 2024</summary>
+          <div class="resource-links">
+            <a href="https://drive.google.com/file/d/1kIKBHAnCeraSF_RqmirzDznqDML3qk0T/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🏙️ FR 2024
+            </a>
+            <a href="https://drive.google.com/file/d/1Jivg0hw1RZUVamieLo32OGPblDk48Ex6/view?usp=sharing" target="_blank" class="resource-link" rel="noopener">
+              🗺️ FR 2024 Carte
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- BREVET BLANC : SCIENCES -->
+    <section id="bb-sciences" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
+            <h2 class="subject-page-title">Brevet Blanc – Sciences</h2>
+          </div>
+          <span class="pill">Sciences · Brevet blanc</span>
+        </div>
+        <p class="subject-page-tagline">
+          Prépare l’épreuve de Sciences (SVT, Physique-Chimie, Technologie) avec des ressources ciblées et des sujets de Brevet blanc.
+        </p>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Ressources</h3>
+          <p class="bb-section-subtitle">
+            Utilise ces ressources pour maîtriser méthodologie et notions avant de passer aux sujets d’entraînement.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
+              <div>
+                <p>Fiches synthétiques sur les thèmes de SVT, Physique-Chimie et Technologie au programme.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+              <div>
+                <p>Cours complets avec expériences, schémas et démarches scientifiques.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🎥</span>Videos</summary>
+              <div>
+                <p>Vidéos d’expériences, d’explications de notions et de corrections d’exercices.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+              <div>
+                <p>Flashcards pour réviser vocabulaire scientifique, unités et symboles.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
+              <div>
+                <p>Quiz pour tester tes connaissances avant l’épreuve de Sciences.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+              <div>
+                <p>Cartes mentales reliant expériences, notions et vocabulaire en Sciences.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
+          <p class="bb-section-subtitle">
+            Entraîne-toi avec des sujets complets de Brevet blanc en Sciences.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
+              <div>
+                <p>Sujets complets avec documents et questions mêlant SVT, Physique-Chimie et Technologie.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
+          <p class="bb-section-subtitle">
+            Vérifie tes réponses et comprends les attentes du correcteur.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
+              <div>
+                <p>Corrigés détaillés pour chaque partie : SVT, Physique-Chimie, Technologie, avec explications des démarches scientifiques attendues au Brevet.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTILS -->
+<section id="outils" class="page">
+  <h2 class="section-title">Outils</h2>
+  <p class="section-subtitle">
+    Utilise ces outils pour simuler tes points au Brevet et suivre ta moyenne générale.
+  </p>
+
+  <div class="tools-grid">
+    <article class="tool-card">
+      <div>
+        <h3 class="tool-title">
+          📊 Calculateur points Brevet
+          <span class="tool-badge">Embed prêt</span>
+        </h3>
+        <p class="tool-text">
+          Simule ton total de points au DNB à partir de tes notes de contrôle continu et des épreuves finales.
+        </p>
+      </div>
+      <div class="tool-placeholder">
+        <iframe
+          title="Calculateur points Brevet"
+          width="100%"
+          height="400"
+          src="https://calculateurbrevet2026.edgeone.app/"
+        ></iframe>
+      </div>
+      <p class="tool-note">
+        Remplace l’URL par le lien d’intégration de ton tableau Google Sheets (mode public ou restreint).
+      </p>
+    </article>
+
+    <article class="tool-card">
+      <div>
+        <h3 class="tool-title">
+          📈 Calculateur moyenne générale
+          <span class="tool-badge">Embed prêt</span>
+        </h3>
+        <p class="tool-text">
+          Calcule ta moyenne générale sur l’année et observe ta progression au fil des trimestres.
+        </p>
+      </div>
+      <div class="tool-placeholder">
+        <iframe
+          title="Calculateur moyenne générale"
+          width="100%"
+          height="400"
+          src="https://yellow-ardelia-83.tiiny.site/"
+        ></iframe>
+      </div>
+      <p class="tool-note">
+        Colle ici l’URL d’intégration de ton tableau de suivi des moyennes (Google Sheets ou autre outil).
+      </p>
+    </article>
+  </div>
+</section>
+
+    <!-- AGENDA & SUIVI -->
+
+<section id="agenda" class="page">
+
+  <h2 class="section-title">Agenda & Suivi</h2>
+
+  <p class="section-subtitle">
+    Organise ton année avec un calendrier clair pour tes contrôles, oraux blancs et périodes de révision.
+  </p>
+
+  <div class="calendar-block">
+    <div class="calendar-header">
+      <div>
+        <p class="calendar-title">Calendrier de révisions & contrôles</p>
+        <p class="calendar-help">
+          Ajoute les dates des contrôles, oraux blancs et périodes de révisions intensives.
+        </p>
+      </div>
+      <span class="pill">Google Calendar prêt</span>
+    </div>
+    <div class="calendar-placeholder">
+      <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FParis&showPrint=0&src=ZWMyNjQ3NDA4ZTdmZGRkY2RjZmFhNjBkYWQ4MjhmNzk0OGVhODAyZmZiY2YyODQ2YjczZDA2ODMzMmYxOTVkOEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4uZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23c0ca33&color=%230b8043" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
+  </div>
+</section>
+
+    <!-- CLASSEMENT / XP PAGE -->
+    <section id="classement" class="page">
+      <h2 class="section-title">Classement & XP</h2>
+      <p class="section-subtitle">
+        Visualise tes points d’XP et compare-toi aux autres élèves de ta classe et à tous les utilisateurs.
+      </p>
+
+      <div class="xp-summary">
+        <p id="xp-current-user">Tu n’es pas connecté. Connecte-toi pour voir ton XP.</p>
+        <p class="muted">
+          Plus tard, l’XP sera gagné automatiquement en fonction du temps de révision et des quêtes que tu complètes.
+        </p>
+      </div>
+
+      <div class="ranking-grid">
+        <article class="ranking-card">
+          <h3 class="ranking-title">Classement dans ta classe</h3>
+          <p class="ranking-note">
+            Classement des élèves de ta classe (3º1, 3º2, 3º3, 3º4 ou 3º5) selon l’XP total.
+          </p>
+          <div id="class-ranking-container">
+            <p class="muted">Connecte-toi pour voir le classement de ta classe.</p>
+          </div>
+        </article>
+
+        <article class="ranking-card">
+          <h3 class="ranking-title">Classement global (tous les utilisateurs)</h3>
+          <p class="ranking-note">
+            Classement de tous les comptes créés sur cette plateforme, selon l’XP total.
+          </p>
+          <div id="global-ranking-container">
+            <p class="muted">Connecte-toi ou crée un compte pour apparaître dans le classement global.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+<!-- ========== PAGE MON COMPTE ========== -->
+<section id="mon-compte" class="page">
+    <h2 class="section-title">Mon Compte</h2>
+    <p class="section-subtitle">Gère ton profil, change ton mot de passe et contacte le support si besoin.</p>
+    
+    <!-- User Stats Card -->
+    <div class="account-card">
+        <h3>📊 Mes Statistiques</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">Prénom:</span>
+                <span class="stat-value" id="display-firstname">-</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Nom:</span>
+                <span class="stat-value" id="display-lastname">-</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Classe:</span>
+                <span class="stat-value" id="display-class">-</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">🏆 XP Total:</span>
+                <span class="stat-value" id="display-xp">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">📅 Membre depuis:</span>
+                <span class="stat-value" id="display-since">-</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">📈 Visites:</span>
+                <span class="stat-value" id="display-visits">0</span>
+            </div>
+        </div>
+    </div>
+<!-- Edit Profile Card -->
+<div class="account-card">
+    <h3>✏️ Modifier mon Profil</h3>
+    <form id="edit-profile-form" class="account-form">
+        <div class="form-group">
+            <label for="profile-firstname">Prénom:</label>
+            <input type="text" id="profile-firstname" placeholder="Votre prénom" required minlength="2">
+        </div>
+        <div class="form-group">
+            <label for="profile-lastname">Nom:</label>
+            <input type="text" id="profile-lastname" placeholder="Votre nom" required minlength="2">
+        </div>
+        <div class="form-group">
+            <label for="profile-class">Classe:</label>
+            <select id="profile-class" required>
+                <option value="">Choisis ta classe</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+            </select>
+        </div>
+        <button type="submit" class="cta-primary">Enregistrer les modifications</button>
+        <div id="profile-message" class="message"></div>
+    </form>
+</div>
+
+    
+    <!-- Change Password Card -->
+    <div class="account-card">
+        <h3>🔒 Changer mon Mot de Passe</h3>
+        <form id="change-password-form" class="account-form">
+            <div class="form-group">
+                <label for="current-password">Mot de passe actuel:</label>
+                <input type="password" id="current-password" placeholder="Entrez votre mot de passe actuel" required>
+            </div>
+            <div class="form-group">
+                <label for="new-password">Nouveau mot de passe:</label>
+                <input type="password" id="new-password" placeholder="Entrez un nouveau mot de passe" required minlength="4">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirmer le mot de passe:</label>
+                <input type="password" id="confirm-password" placeholder="Confirmez le nouveau mot de passe" required>
+            </div>
+            <button type="submit" class="cta-primary">Changer le mot de passe</button>
+            <div id="password-message" class="message"></div>
+        </form>
+    </div>
+
+<!-- Contact Support Card -->
+<div class="account-card">
+    <h3>📧 Contacter le Support</h3>
+    <p style="font-size: 0.9em; color: #6b7280; margin-bottom: 1rem;">
+        Un problème ou une question ? Envoie un message à l'administrateur.
+    </p>
+    <form id="contact-form" class="account-form">
+        <div class="form-group">
+            <label for="contact-subject">Sujet:</label>
+            <input type="text" id="contact-subject" placeholder="Résumé de votre problème" required maxlength="100">
+        </div>
+        <div class="form-group">
+            <label for="contact-reason">Message:</label>
+            <textarea id="contact-reason" rows="5" placeholder="Décrivez votre problème ou question..." required></textarea>
+        </div>
+        <button type="submit" class="cta-primary">📧 Envoyer le Message</button>
+        <div id="contact-message" class="message"></div>
+    </form>
+</div>
+
+
+    </section>
+    <!-- PAGE ADMIN -->
+    <section id="admin" class="page">
+      <div class="admin-page">
+        <div class="admin-header">
+          <h2 class="admin-title">🔐 Administration</h2>
+          <span class="admin-badge">Accès Admin</span>
+        </div>
+
+        <div class="admin-stats">
+          <div class="admin-stat-card">
+            <div class="admin-stat-value" id="admin-total-users">0</div>
+            <div class="admin-stat-label">Utilisateurs total</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-value" id="admin-total-xp">0</div>
+            <div class="admin-stat-label">XP total</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-value" id="admin-avg-xp">0</div>
+            <div class="admin-stat-label">XP moyen</div>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h3 class="admin-section-title">Gestion des utilisateurs</h3>
+          <table class="admin-users-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Classe</th>
+                <th>XP</th>
+                <th>Créé le</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-tbody">
+              <!-- Users will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+<div class="admin-section">
+    <h3 class="admin-section-title">📬 Messages des Utilisateurs</h3>
+    <div id="admin-messages-container">
+        <p class="muted">Aucun message pour le moment.</p>
+    </div>
+</div>
+
+
+        <div class="admin-warning">
+          ⚠️ <strong>Attention :</strong> Les actions de suppression sont irréversibles. Les données supprimées ne peuvent pas être récupérées.
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL D'ÉDITION ADMIN -->
+    <div id="admin-edit-modal" class="admin-edit-modal hidden">
+      <div class="admin-edit-backdrop"></div>
+      <div class="admin-edit-content">
+        <h3 class="admin-edit-title">Modifier l'utilisateur</h3>
+        <form id="admin-edit-form" class="admin-edit-form">
+          <input type="hidden" id="edit-user-id">
+          
+          <label for="edit-first-name">Prénom</label>
+          <input type="text" id="edit-first-name" required>
+          
+          <label for="edit-last-name">Nom</label>
+          <input type="text" id="edit-last-name" required>
+          
+          <label for="edit-class-name">Classe</label>
+          <select id="edit-class-name" required>
+            <option value="">Choisis la classe</option>
+            <option value="31">31</option>
+            <option value="32">32</option>
+            <option value="33">33</option>
+            <option value="34">34</option>
+            <option value="35">35</option>
+          </select>
+          
+          <label for="edit-xp">XP</label>
+          <input type="number" id="edit-xp" min="0" required>
+          <label for="edit-password">Nouveau mot de passe (optionnel)</label>
+<input type="text" id="edit-password" placeholder="Laisser vide pour ne pas changer">
+
+          <div class="admin-edit-actions">
+            <button type="submit" class="admin-edit-btn-save">💾 Enregistrer</button>
+            <button type="button" id="admin-edit-cancel" class="admin-edit-btn-cancel">Annuler</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> Master 3ème · Préparation Brevet.
+  </footer>
+
+  <script>
+    // ---------- NAVIGATION PAGES ----------
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+const linkItems = navLinks.querySelectorAll('a');
+const pages = document.querySelectorAll('.page');
+
+function showPage(id) {
+  pages.forEach(p => p.classList.toggle('active', p.id === id));
+  linkItems.forEach(link => {
+    const page = link.dataset.page;
+    link.classList.toggle('active-link', page === id || (id.startsWith('ressources-') && page === 'ressources') || (id.startsWith('bb-') && page === 'brevet-blanc'));
+  });
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function getHashPage() {
+  const hash = window.location.hash.replace('#', '');
+  if (!hash) return 'accueil';
+  const validIds = Array.from(pages).map(p => p.id);
+  return validIds.includes(hash) ? hash : 'accueil';
+}
+
+function handleHashChange() {
+  const pageId = getHashPage();
+  showPage(pageId);
+  if (pageId === 'classement') refreshRankingPage();
+  if (pageId === 'admin') refreshAdminPage();
+  checkAdminAccess();
+}
+
+window.addEventListener('hashchange', handleHashChange);
+window.addEventListener('load', () => {
+  document.getElementById('year').textContent = new Date().getFullYear();
+  handleHashChange();
+});
+
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+
+linkItems.forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 720) {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+document.querySelectorAll('[data-link]').forEach(el => {
+  el.addEventListener('click', (e) => {
+    const target = el.getAttribute('data-link');
+    if (target) {
+      e.preventDefault();
+      window.location.hash = '#' + target;
+    }
+  });
+});
+
+const USERS_KEY = 'm3users';
+const CURRENT_USER_KEY = 'm3currentuserid';
+const DEVICE_LAST_USER_KEY = 'm3lastuserid';
+
+function supportsLocalStorage() {
+  try {
+    const testKey = '__testls__';
+    window.localStorage.setItem(testKey, '1');
+    window.localStorage.removeItem(testKey);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+const hasLocal = supportsLocalStorage();
+
+function loadUsers() {
+  if (!hasLocal) return [];
+  const raw = localStorage.getItem(USERS_KEY);
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch { return []; }
+}
+
+function saveUsers(users) {
+  if (!hasLocal) return;
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+function genUserId(firstName, lastName) {
+  const base = (firstName + lastName + Date.now()).toLowerCase();
+  return base.replace(/[^a-z0-9]/g, '');
+}
+
+function hashPassword(pw) {
+  let hash = 0;
+  for (let i = 0; i < pw.length; i++) {
+    hash = (hash << 5) - hash + pw.charCodeAt(i);
+    hash = hash & hash;
+  }
+  return String(hash);
+}
+
+function findUser(firstName, lastName) {
+  const users = loadUsers();
+  return users.find(u => u.firstName.toLowerCase() === firstName.toLowerCase().trim() && u.lastName.toLowerCase() === lastName.toLowerCase().trim());
+}
+
+function ensureUserDefaults(user) {
+  if (typeof user.xp !== 'number') user.xp = 0;
+  if (!user.history || typeof user.history !== 'object') {
+    user.history = { lastVisit: Date.now(), visits: [] };
+  }
+  return user;
+}
+
+function upsertUser(user) {
+  user = ensureUserDefaults(user);
+  const users = loadUsers();
+  const idx = users.findIndex(u => u.id === user.id);
+  if (idx >= 0) { users[idx] = user; } else { users.push(user); }
+  saveUsers(users);
+}
+
+function setCurrentUserId(id) {
+  if (!hasLocal) return;
+  localStorage.setItem(CURRENT_USER_KEY, id);
+  localStorage.setItem(DEVICE_LAST_USER_KEY, id);
+}
+
+function getCurrentUserId() {
+  if (!hasLocal) return null;
+  return localStorage.getItem(CURRENT_USER_KEY);
+}
+
+function getDeviceLastUserId() {
+  if (!hasLocal) return null;
+  return localStorage.getItem(DEVICE_LAST_USER_KEY);
+}
+
+function clearCurrentUser() {
+  if (!hasLocal) return;
+  localStorage.removeItem(CURRENT_USER_KEY);
+}
+
+function getCurrentUser() {
+  const id = getCurrentUserId();
+  if (!id) return null;
+  const users = loadUsers();
+  const user = users.find(u => u.id === id) || null;
+  return user ? ensureUserDefaults(user) : null;
+}
+
+function getUserHistory(user) {
+  if (!user.history || typeof user.history !== 'object') {
+    user.history = { lastVisit: Date.now(), visits: [] };
+  }
+  return user.history;
+}
+
+function updateUserHistoryOnVisit(user) {
+  const history = getUserHistory(user);
+  history.lastVisit = Date.now();
+  history.visits.push({ date: Date.now(), page: getHashPage() });
+  user.history = history;
+  upsertUser(user);
+}
+
+const welcomeMsg = document.getElementById('welcome-message');
+const changeUserBtn = document.getElementById('change-user-btn');
+const logoutBtn = document.getElementById('logout-btn');
+
+function setWelcome(user) {
+  if (!welcomeMsg) return;
+  if (!user) {
+    welcomeMsg.textContent = '';
+    checkAdminAccess();
+    return;
+  }
+  welcomeMsg.textContent = `Bienvenue, ${user.firstName} ${user.lastName} (${user.className}).`;
+  checkAdminAccess();
+}
+
+const authGate = document.getElementById('auth-gate');
+const authForm = document.getElementById('auth-form');
+const authModeInput = document.getElementById('auth-mode');
+const firstNameInput = document.getElementById('first-name');
+const lastNameInput = document.getElementById('last-name');
+const classSelect = document.getElementById('class-name');
+const passwordInput = document.getElementById('password');
+const authError = document.getElementById('auth-error');
+const authSubmitBtn = document.getElementById('auth-submit-btn');
+const authToggleBtn = document.getElementById('auth-toggle-btn');
+const authToggleText = document.getElementById('auth-toggle-text');
+
+function getFocusableElements(container) {
+  return Array.from(container.querySelectorAll('a[href], button:not([disabled]), textarea, input:not([disabled]), select, [tabindex]:not([tabindex="-1"])'));
+}
+
+function openAuthGate(mode = 'signup') {
+  authModeInput.value = mode;
+  authError.textContent = '';
+  passwordInput.value = '';
+  if (mode === 'signup') {
+    authSubmitBtn.textContent = 'Créer mon compte';
+    passwordInput.setAttribute('autocomplete', 'new-password');
+    authToggleText.textContent = 'Tu as déjà un compte ?';
+    authToggleBtn.textContent = 'Se connecter';
+  } else {
+    authSubmitBtn.textContent = 'Se connecter';
+    passwordInput.setAttribute('autocomplete', 'current-password');
+    authToggleText.textContent = "Tu n'as pas encore de compte ?";
+    authToggleBtn.textContent = 'Créer un compte';
+  }
+  authGate.classList.remove('name-gate--hidden');
+  const focusables = getFocusableElements(authGate);
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  if (firstNameInput) firstNameInput.focus();
+  function trap(e) {
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+  authGate.addEventListener('keydown', trap);
+  authGate.cleanupTrap = () => authGate.removeEventListener('keydown', trap);
+}
+
+function closeAuthGate() {
+  if (authGate.cleanupTrap) authGate.cleanupTrap();
+  authGate.classList.add('name-gate--hidden');
+}
+
+function validateAuthForm(mode) {
+  const fn = firstNameInput.value.trim();
+  const ln = lastNameInput.value.trim();
+  const cl = classSelect.value;
+  const pw = passwordInput.value;
+  if (!fn || fn.length < 2) return 'Merci de saisir un prénom valide.';
+  if (!ln || ln.length < 2) return 'Merci de saisir un nom valide.';
+  if (!cl) return 'Merci de choisir ta classe.';
+  if (!pw || pw.length < 4) return 'Le mot de passe doit contenir au moins 4 caractères.';
+  if (mode === 'signup') {
+    const existing = findUser(fn, ln);
+    if (existing) return 'Un compte avec ce prénom et ce nom existe déjà. Connecte-toi plutôt.';
+  } else if (mode === 'login') {
+    const existing = findUser(fn, ln);
+    if (!existing) return 'Aucun compte trouvé avec ce prénom et ce nom. Crée un compte.';
+    if (existing.passwordHash !== hashPassword(pw)) return 'Mot de passe incorrect.';
+  }
+  return '';
+}
+
+authForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const mode = authModeInput.value === 'signup' ? 'signup' : 'login';
+    const errorMsg = validateAuthForm(mode);
+    if (errorMsg) {
+        authError.textContent = errorMsg;
+        return;
+    }
+    const fn = firstNameInput.value.trim();
+    const ln = lastNameInput.value.trim();
+    const cl = classSelect.value;
+    const pw = passwordInput.value;
+    if (mode === 'signup') {
+        const newUser = {
+            id: genUserId(fn, ln),
+            firstName: fn,
+            lastName: ln,
+            className: cl,
+            passwordHash: hashPassword(pw),
+            createdAt: Date.now(),
+            xp: 0,
+            history: { lastVisit: Date.now(), visits: [] }
+        };
+        upsertUser(newUser);
+        setCurrentUserId(newUser.id);
+        setWelcome(newUser);
+        closeAuthGate();
+        updateUserHistoryOnVisit(newUser);
+        if (getHashPage() === 'classement') refreshRankingPage();
+        if (getHashPage() === 'mon-compte') loadAccountData();
+    } else {
+        const existing = findUser(fn, ln);
+        const user = ensureUserDefaults(existing);
+        setCurrentUserId(user.id);
+        setWelcome(user);
+        closeAuthGate();
+        updateUserHistoryOnVisit(user);
+        if (getHashPage() === 'classement') refreshRankingPage();
+        if (getHashPage() === 'mon-compte') loadAccountData();
+    }
+});
+
+authToggleBtn.addEventListener('click', () => {
+  const mode = authModeInput.value === 'signup' ? 'login' : 'signup';
+  openAuthGate(mode);
+});
+
+if (changeUserBtn) {
+    changeUserBtn.addEventListener('click', () => {
+        const currentUser = getCurrentUser();
+        if (currentUser) {
+            firstNameInput.value = currentUser.firstName;
+            lastNameInput.value = currentUser.lastName;
+            classSelect.value = currentUser.className;
+        }
+        openAuthGate('login');
+        if (getHashPage() === 'mon-compte') {
+            setTimeout(() => loadAccountData(), 100);
+        }
+    });
+}
+
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        clearCurrentUser();
+        setWelcome(null);
+        openAuthGate('signup');
+        if (getHashPage() === 'classement') refreshRankingPage();
+        if (getHashPage() === 'mon-compte') {
+            window.location.hash = '#accueil';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!hasLocal) return;
+  const current = getCurrentUser();
+  if (current) {
+    setWelcome(current);
+    updateUserHistoryOnVisit(current);
+    if (getHashPage() === 'classement') refreshRankingPage();
+    return;
+  }
+  const lastId = getDeviceLastUserId();
+  if (lastId) {
+    const users = loadUsers();
+    const user = users.find((u) => u.id === lastId);
+    if (user) {
+      firstNameInput.value = user.firstName;
+      lastNameInput.value = user.lastName;
+      classSelect.value = user.className;
+      openAuthGate('login');
+      return;
+    }
+  }
+  openAuthGate('signup');
+});
+
+const xpCurrentUserEl = document.getElementById('xp-current-user');
+const classRankingContainer = document.getElementById('class-ranking-container');
+const globalRankingContainer = document.getElementById('global-ranking-container');
+
+function buildRankingTable(users, currentUser) {
+  if (!users.length) {
+    const p = document.createElement('p');
+    p.className = 'muted';
+    p.textContent = 'Aucun utilisateur pour l\'instant.';
+    return p;
+  }
+  const table = document.createElement('table');
+  table.className = 'ranking-table';
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+  ['#', 'Nom', 'Classe', 'XP'].forEach(h => {
+    const th = document.createElement('th');
+    th.textContent = h;
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+  const tbody = document.createElement('tbody');
+  users.forEach((u, idx) => {
+    const tr = document.createElement('tr');
+    if (currentUser && u.id === currentUser.id) tr.classList.add('highlight');
+    const rankTd = document.createElement('td');
+    rankTd.textContent = String(idx + 1);
+    const nameTd = document.createElement('td');
+    nameTd.textContent = u.firstName + ' ' + u.lastName;
+        const classTd = document.createElement('td');
+    classTd.textContent = u.className || '-';
+    const xpTd = document.createElement('td');
+    xpTd.textContent = typeof u.xp === 'number' ? u.xp : 0;
+    tr.appendChild(rankTd);
+    tr.appendChild(nameTd);
+    tr.appendChild(classTd);
+    tr.appendChild(xpTd);
+    tbody.appendChild(tr);
+  });
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  return table;
+}
+
+function refreshRankingPage() {
+  if (!xpCurrentUserEl || !classRankingContainer || !globalRankingContainer) return;
+  const currentUser = getCurrentUser();
+  const allUsers = loadUsers().map(ensureUserDefaults);
+  if (!currentUser) {
+    xpCurrentUserEl.textContent = 'Tu n\'es pas connecté. Connecte-toi pour voir ton XP.';
+    classRankingContainer.innerHTML = '';
+    const pClass = document.createElement('p');
+    pClass.className = 'muted';
+    pClass.textContent = 'Connecte-toi pour voir le classement de ta classe.';
+    classRankingContainer.appendChild(pClass);
+    globalRankingContainer.innerHTML = '';
+    const pGlobal = document.createElement('p');
+    pGlobal.className = 'muted';
+    pGlobal.textContent = 'Connecte-toi ou crée un compte pour apparaître dans le classement global.';
+    globalRankingContainer.appendChild(pGlobal);
+    return;
+  }
+  const xp = typeof currentUser.xp === 'number' ? currentUser.xp : 0;
+  xpCurrentUserEl.textContent = `Tu as actuellement ${xp} XP.`;
+  const sameClassUsers = allUsers.filter(u => u.className === currentUser.className).sort((a, b) => (b.xp || 0) - (a.xp || 0));
+  classRankingContainer.innerHTML = '';
+  classRankingContainer.appendChild(buildRankingTable(sameClassUsers, currentUser));
+  const globalUsers = allUsers.sort((a, b) => (b.xp || 0) - (a.xp || 0));
+  globalRankingContainer.innerHTML = '';
+  globalRankingContainer.appendChild(buildRankingTable(globalUsers, currentUser));
+}
+
+const ADMIN_CREDENTIALS = { firstName: 'Rakshit', lastName: 'PANDE', password: 'Rakshit@2026' };
+
+function isAdmin(user) {
+  if (!user) return false;
+  return user.firstName === ADMIN_CREDENTIALS.firstName && user.lastName === ADMIN_CREDENTIALS.lastName;
+}
+
+function checkAdminAccess() {
+  const currentUser = getCurrentUser();
+  const adminNavLink = document.getElementById('admin-nav-link');
+  if (isAdmin(currentUser)) {
+    if (adminNavLink) adminNavLink.style.display = 'inline-block';
+  } else {
+    if (adminNavLink) adminNavLink.style.display = 'none';
+    if (getHashPage() === 'admin') window.location.hash = '#accueil';
+  }
+}
+
+function formatDate(timestamp) {
+  const date = new Date(timestamp);
+  return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+function refreshAdminPage() {
+  const currentUser = getCurrentUser();
+  if (!isAdmin(currentUser)) {
+    window.location.hash = '#accueil';
+    return;
+  }
+  const allUsers = loadUsers().map(ensureUserDefaults).filter(u => !isAdmin(u));
+  const totalUsers = allUsers.length;
+  const totalXP = allUsers.reduce((sum, u) => sum + (u.xp || 0), 0);
+  const avgXP = totalUsers > 0 ? Math.round(totalXP / totalUsers) : 0;
+  const totalUsersEl = document.getElementById('admin-total-users');
+  const totalXPEl = document.getElementById('admin-total-xp');
+  const avgXPEl = document.getElementById('admin-avg-xp');
+  if (totalUsersEl) totalUsersEl.textContent = totalUsers;
+  if (totalXPEl) totalXPEl.textContent = totalXP;
+  if (avgXPEl) avgXPEl.textContent = avgXP;
+  const tbody = document.getElementById('admin-users-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  if (allUsers.length === 0) {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = 7;
+    td.textContent = 'Aucun utilisateur pour le moment.';
+    td.style.textAlign = 'center';
+    td.style.padding = '2rem';
+    td.style.color = '#6b7280';
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+  allUsers.forEach((user, index) => {
+    const tr = document.createElement('tr');
+    const tdIndex = document.createElement('td');
+    tdIndex.textContent = index + 1;
+    const tdFirstName = document.createElement('td');
+    tdFirstName.textContent = user.firstName;
+    const tdLastName = document.createElement('td');
+    tdLastName.textContent = user.lastName;
+    const tdClass = document.createElement('td');
+    tdClass.textContent = user.className || '-';
+    const tdXP = document.createElement('td');
+    tdXP.textContent = user.xp || 0;
+    const tdCreated = document.createElement('td');
+    tdCreated.textContent = user.createdAt ? formatDate(user.createdAt) : '-';
+    const tdActions = document.createElement('td');
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'admin-actions';
+    const btnEdit = document.createElement('button');
+    btnEdit.className = 'admin-btn admin-btn-edit';
+    btnEdit.textContent = '✏️ Modifier';
+    btnEdit.onclick = () => openEditModal(user);
+    const btnDelete = document.createElement('button');
+    btnDelete.className = 'admin-btn admin-btn-delete';
+    btnDelete.textContent = '🗑️ Supprimer';
+    btnDelete.onclick = () => deleteUser(user);
+    actionsDiv.appendChild(btnEdit);
+    actionsDiv.appendChild(btnDelete);
+    tdActions.appendChild(actionsDiv);
+    tr.appendChild(tdIndex);
+    tr.appendChild(tdFirstName);
+    tr.appendChild(tdLastName);
+    tr.appendChild(tdClass);
+    tr.appendChild(tdXP);
+    tr.appendChild(tdCreated);
+    tr.appendChild(tdActions);
+    tbody.appendChild(tr);
+  });
+    displayAdminMessages();
+
+}
+
+function deleteUser(user) {
+  const confirmMsg = `Êtes-vous sûr de vouloir supprimer le compte de ${user.firstName} ${user.lastName} ?\n\nCette action est irréversible.`;
+  if (!confirm(confirmMsg)) return;
+  const users = loadUsers();
+  const filteredUsers = users.filter(u => u.id !== user.id);
+  saveUsers(filteredUsers);
+  alert(`Le compte de ${user.firstName} ${user.lastName} a été supprimé.`);
+  refreshAdminPage();
+}
+
+let editingUserId = null;
+
+function openEditModal(user) {
+  editingUserId = user.id;
+  const modal = document.getElementById('admin-edit-modal');
+  const userIdInput = document.getElementById('edit-user-id');
+  const firstNameInput = document.getElementById('edit-first-name');
+  const lastNameInput = document.getElementById('edit-last-name');
+  const classNameInput = document.getElementById('edit-class-name');
+  const xpInput = document.getElementById('edit-xp');
+  const passwordInput = document.getElementById('edit-password');
+  if (userIdInput) userIdInput.value = user.id;
+  if (firstNameInput) firstNameInput.value = user.firstName;
+  if (lastNameInput) lastNameInput.value = user.lastName;
+  if (classNameInput) classNameInput.value = user.className || '';
+  if (xpInput) xpInput.value = user.xp || 0;
+  if (passwordInput) passwordInput.value = '';
+  if (modal) modal.classList.remove('hidden');
+}
+
+function closeEditModal() {
+  const modal = document.getElementById('admin-edit-modal');
+  if (modal) modal.classList.add('hidden');
+  editingUserId = null;
+}
+
+const adminEditForm = document.getElementById('admin-edit-form');
+const adminEditCancel = document.getElementById('admin-edit-cancel');
+const adminEditBackdrop = document.querySelector('.admin-edit-backdrop');
+
+if (adminEditForm) {
+  adminEditForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!editingUserId) return;
+    const firstName = document.getElementById('edit-first-name').value.trim();
+    const lastName = document.getElementById('edit-last-name').value.trim();
+    const className = document.getElementById('edit-class-name').value;
+    const xp = parseInt(document.getElementById('edit-xp').value) || 0;
+    const newPassword = document.getElementById('edit-password').value.trim();
+    const users = loadUsers();
+    const userIndex = users.findIndex(u => u.id === editingUserId);
+    if (userIndex === -1) {
+      alert('Utilisateur introuvable.');
+      closeEditModal();
+      return;
+    }
+    users[userIndex].firstName = firstName;
+    users[userIndex].lastName = lastName;
+    users[userIndex].className = className;
+    users[userIndex].xp = xp;
+    
+    if (newPassword && newPassword.length >= 4) {
+      users[userIndex].passwordHash = hashPassword(newPassword);
+      alert(`Utilisateur modifié avec succès !\nNouveau mot de passe : ${newPassword}`);
+    } else if (newPassword && newPassword.length < 4) {
+      alert('Le mot de passe doit contenir au moins 4 caractères. Le mot de passe n\'a pas été changé.');
+    } else {
+      alert('Utilisateur modifié avec succès !');
+    }
+    
+    saveUsers(users);
+    closeEditModal();
+    refreshAdminPage();
+  });
+}
+
+if (adminEditCancel) {
+  adminEditCancel.addEventListener('click', closeEditModal);
+}
+
+if (adminEditBackdrop) {
+  adminEditBackdrop.addEventListener('click', closeEditModal);
+}
+
+// ========== MON COMPTE PAGE FUNCTIONS ==========
+
+// Load account data when Mon Compte page is shown
+function loadAccountData() {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+        window.location.hash = '#accueil';
+        return;
+    }
+
+    // Display user stats
+    const displayFirstname = document.getElementById('display-firstname');
+    const displayLastname = document.getElementById('display-lastname');
+    const displayClass = document.getElementById('display-class');
+    const displayXp = document.getElementById('display-xp');
+    const displaySince = document.getElementById('display-since');
+    const displayVisits = document.getElementById('display-visits');
+
+    if (displayFirstname) displayFirstname.textContent = currentUser.firstName || '-';
+    if (displayLastname) displayLastname.textContent = currentUser.lastName || '-';
+    if (displayClass) displayClass.textContent = currentUser.className || '-';
+    if (displayXp) displayXp.textContent = currentUser.xp || 0;
+    
+    if (displaySince) {
+        if (currentUser.createdAt) {
+            displaySince.textContent = formatDate(currentUser.createdAt);
+        } else {
+            displaySince.textContent = '-';
+        }
+    }
+    
+    if (displayVisits) {
+        const visits = currentUser.history && currentUser.history.visits ? currentUser.history.visits.length : 0;
+        displayVisits.textContent = visits;
+    }
+    
+    // Pre-fill profile edit form
+    const profileFirstname = document.getElementById('profile-firstname');
+    const profileLastname = document.getElementById('profile-lastname');
+    const profileClass = document.getElementById('profile-class');
+    
+    if (profileFirstname) profileFirstname.value = currentUser.firstName || '';
+    if (profileLastname) profileLastname.value = currentUser.lastName || '';
+    if (profileClass) profileClass.value = currentUser.className || '';
+}
+
+// Edit Profile Form Handler
+const editProfileForm = document.getElementById('edit-profile-form');
+if (editProfileForm) {
+    editProfileForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const currentUser = getCurrentUser();
+        if (!currentUser) return;
+        
+        const newFirstName = document.getElementById('profile-firstname').value.trim();
+        const newLastName = document.getElementById('profile-lastname').value.trim();
+        const newClassName = document.getElementById('profile-class').value;
+        
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+        
+        if (userIndex !== -1) {
+            users[userIndex].firstName = newFirstName;
+            users[userIndex].lastName = newLastName;
+            users[userIndex].className = newClassName;
+            
+            saveUsers(users);
+            
+            const message = document.getElementById('profile-message');
+            if (message) {
+                message.textContent = '✅ Profil mis à jour avec succès!';
+                message.className = 'message success';
+                
+                loadAccountData();
+                setWelcome(users[userIndex]);
+                
+                setTimeout(function() {
+                    message.style.display = 'none';
+                }, 3000);
+            }
+        }
+    });
+}
+
+// Change Password Form Handler
+const changePasswordForm = document.getElementById('change-password-form');
+if (changePasswordForm) {
+    changePasswordForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const currentPassword = document.getElementById('current-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const message = document.getElementById('password-message');
+        
+        const currentUser = getCurrentUser();
+        if (!currentUser) return;
+        
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+        
+        if (userIndex === -1) {
+            if (message) {
+                message.textContent = '❌ Utilisateur non trouvé';
+                message.className = 'message error';
+            }
+            return;
+        }
+        
+        if (users[userIndex].passwordHash !== hashPassword(currentPassword)) {
+            if (message) {
+                message.textContent = '❌ Mot de passe actuel incorrect';
+                message.className = 'message error';
+            }
+            return;
+        }
+        
+        if (newPassword !== confirmPassword) {
+            if (message) {
+                message.textContent = '❌ Les nouveaux mots de passe ne correspondent pas';
+                message.className = 'message error';
+            }
+            return;
+        }
+        
+        if (newPassword.length < 4) {
+            if (message) {
+                message.textContent = '❌ Le mot de passe doit contenir au moins 4 caractères';
+                message.className = 'message error';
+            }
+            return;
+        }
+        
+        users[userIndex].passwordHash = hashPassword(newPassword);
+        saveUsers(users);
+        
+        if (message) {
+            message.textContent = '✅ Mot de passe changé avec succès!';
+            message.className = 'message success';
+        }
+        
+        document.getElementById('change-password-form').reset();
+        
+        setTimeout(function() {
+            if (message) message.style.display = 'none';
+        }, 3000);
+    });
+}
+
+// Contact Form Handler - Send message to admin
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const currentUser = getCurrentUser();
+        if (!currentUser) return;
+        
+        const subject = document.getElementById('contact-subject').value.trim();
+        const messageText = document.getElementById('contact-reason').value.trim();
+        const message = document.getElementById('contact-message');
+        
+        const newMessage = {
+            id: 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+            fromUserId: currentUser.id,
+            fromName: currentUser.firstName + ' ' + currentUser.lastName,
+            fromClass: currentUser.className || '-',
+            subject: subject,
+            message: messageText,
+            timestamp: Date.now(),
+            read: false
+        };
+        
+        const messages = loadMessages();
+        messages.push(newMessage);
+        saveMessages(messages);
+        
+        if (message) {
+            message.textContent = '✅ Message envoyé avec succès! L\'administrateur le verra bientôt.';
+            message.className = 'message success';
+        }
+        
+        document.getElementById('contact-subject').value = '';
+        document.getElementById('contact-reason').value = '';
+        
+        setTimeout(function() {
+            if (message) message.style.display = 'none';
+        }, 3000);
+    });
+}
+
+// Messages Storage Functions
+const MESSAGESKEY = 'm3messages';
+
+function loadMessages() {
+    if (!hasLocal) return [];
+    const raw = localStorage.getItem(MESSAGESKEY);
+    if (!raw) return [];
+    try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveMessages(messages) {
+    if (!hasLocal) return;
+    localStorage.setItem(MESSAGESKEY, JSON.stringify(messages));
+}
+
+function deleteMessage(messageId) {
+    const messages = loadMessages();
+    const filtered = messages.filter(m => m.id !== messageId);
+    saveMessages(filtered);
+}
+
+function markMessageAsRead(messageId) {
+    const messages = loadMessages();
+    const msg = messages.find(m => m.id === messageId);
+    if (msg) {
+        msg.read = true;
+        saveMessages(messages);
+    }
+}
+
+function displayAdminMessages() {
+    const container = document.getElementById('admin-messages-container');
+    if (!container) return;
+    
+    const messages = loadMessages();
+    
+    if (messages.length === 0) {
+        container.innerHTML = '<p class="muted">Aucun message pour le moment.</p>';
+        return;
+    }
+    
+    // Sort by timestamp (newest first)
+    messages.sort((a, b) => b.timestamp - a.timestamp);
+    
+    container.innerHTML = '';
+    
+    messages.forEach(msg => {
+        const card = document.createElement('div');
+        card.className = 'message-card' + (msg.read ? '' : ' unread');
+        
+        const header = document.createElement('div');
+        header.className = 'message-header';
+        
+        const from = document.createElement('div');
+        from.className = 'message-from';
+        from.textContent = msg.fromName;
+        if (!msg.read) {
+            from.textContent += ' 🔵';
+        }
+        
+        const date = document.createElement('div');
+        date.className = 'message-date';
+        date.textContent = formatDate(msg.timestamp);
+        
+        header.appendChild(from);
+        header.appendChild(date);
+        
+        const subjectDiv = document.createElement('div');
+        subjectDiv.className = 'message-subject';
+        subjectDiv.textContent = '📌 ' + msg.subject;
+        
+        const body = document.createElement('div');
+        body.className = 'message-body';
+        body.textContent = msg.message;
+        
+        const meta = document.createElement('div');
+        meta.className = 'message-meta';
+        meta.textContent = 'Classe: ' + msg.fromClass;
+        
+        const actions = document.createElement('div');
+        actions.className = 'message-actions';
+        
+        if (!msg.read) {
+            const btnRead = document.createElement('button');
+            btnRead.className = 'admin-btn admin-btn-edit';
+            btnRead.textContent = 'Marquer comme lu';
+            btnRead.onclick = function() {
+                markMessageAsRead(msg.id);
+                displayAdminMessages();
+            };
+            actions.appendChild(btnRead);
+        }
+        
+        const btnDelete = document.createElement('button');
+        btnDelete.className = 'admin-btn admin-btn-delete';
+        btnDelete.textContent = 'Supprimer';
+        btnDelete.onclick = function() {
+            if (confirm('Supprimer ce message ?')) {
+                deleteMessage(msg.id);
+                displayAdminMessages();
+            }
+        };
+        actions.appendChild(btnDelete);
+        
+        card.appendChild(header);
+        card.appendChild(subjectDiv);
+        card.appendChild(body);
+        card.appendChild(meta);
+        card.appendChild(actions);
+        
+        container.appendChild(card);
+    });
+}
+
+  </script>
+</body>
+</html>
